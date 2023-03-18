@@ -1,29 +1,25 @@
-import sys
 import platform
+import sys
 from pathlib import Path
 
 from PySide6.QtCore import QRect
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
-from PySide6.QtGui import QIcon, QPixmap
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 
-from PySide6_DAW.Widgets import ApplicationWidget
-from PySide6_DAW.Widgets import SideBarButton
+from PySide6_DAW.Widgets import DesktopApplication, SideBarButton
 
 
 class MainWindow(QMainWindow):
-    """TODO
-    """
+    """TODO"""
+
     def __init__(self) -> None:
-        """Constructor
-        """
+        """Constructor"""
         super().__init__(parent=None)
 
-        #self.setFixedSize(QSize(400, 300))
         self.setWindowTitle("MenuButton Test")
-        self.setWindowIcon(QIcon("settings.svg"))
-        self.setStyleSheet("background-color: #2c313c")
+        self.setStyleSheet("background-color: #282D32")
 
-        application_widget = ApplicationWidget(self)
+        application_widget = DesktopApplication(self)
         self.setCentralWidget(application_widget)
 
         icon = QPixmap(Path("./settings.svg"))
@@ -64,9 +60,9 @@ def main():
 def change_window_title_bar_color():
     if platform.system() == "Windows":
         import ctypes
-        from ctypes.wintypes import RGB
         from ctypes import byref, c_int
-        
+        from ctypes.wintypes import RGB
+
         color = RGB(255, 0, 0)
         print(ctypes.windll.user32.SetSysColors(2, byref(c_int(2)), byref(c_int(color))))
 

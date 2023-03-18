@@ -1,9 +1,9 @@
 [![Formatting](https://github.com/maerkl24/PySide6-DAW/actions/workflows/formatting.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/formatting.yml)
 [![Linting](https://github.com/maerkl24/PySide6-DAW/actions/workflows/linting.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/linting.yml)
 
-# PySide6-DAW
+# PySide6DAW
 
-Desktop Application Widget (DAW) for PySide6
+Desktop Application Widget (DAW) for PySide6.
 
 ## Usage
 
@@ -40,9 +40,8 @@ pdm run mypy PySide6_DAW
 
 ## TODOs
 
-- [ ] Check naming and naming rules
+- [ ] Add styling methods to widgets (setting colors)
 - [ ] Fix linting errors
 - [ ] Check example
 - [ ] Setup contribution rules
-- [ ] Setup CI
 - [ ] Setup PiPy deployment

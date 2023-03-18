@@ -35,7 +35,7 @@ repository = "https://github.com/maerkl24/PySide6-DAW"
 
 # PDM
 [tool.pdm.dev-dependencies]
-fromat = [
+format = [
     "isort>=5.12.0",
     "black>=23.1.0",
 ]
@@ -64,11 +64,14 @@ ignored-modules = [
 ]
 extension-pkg-whitelist = ["PySide6"]
 
+[tool.pylint.basic]
+# Use PySide6 naming schemes
+function-naming-style = "camelCase"
+method-naming-style = "camelCase"
+module-rgx = "^[A-Z][a-zA-Z]+|__init__"
+
 [tool.pylint.format]
 max-line-length = 120
-
-[tool.pylint."messages control"]
-#disable = ["too-many-arguments", "too-few-public-methods", "too-many-instance-attributes", "fixme"]
 
 [tool.pylint.parameter_documentation]
 default-docstring-type = "google"

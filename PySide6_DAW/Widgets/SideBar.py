@@ -1,4 +1,6 @@
-from typing import List
+"""Side bar class implementation."""
+
+from typing import List, Optional
 
 from PySide6.QtGui import QResizeEvent
 from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
@@ -6,24 +8,21 @@ from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout, QWi
 from PySide6_DAW.Widgets.SideBarButton import SideBarButton
 
 
-# TODO: Set default button as first button. There must be always on button enabled!
 class SideBar(QWidget):
-    """Menu bar
+    """Side bar widget"""
 
-    Menu bar for desktop applications.
-    """
-
-    def __init__(self, parent: QWidget) -> None:
+    def __init__(self, parent: Optional[QWidget] = None) -> None:
         """Constructor
 
         Args:
-            parent: TODO
+            parent: The parent widget.
         """
         super().__init__(parent)
 
         self._first_button = True
+        # TODO: Make color settable
+        self._bg_color = "#191E23"
 
-        self.setStyleSheet("background-color: #1b1e23; border: none; border-radius: 8px;")
         self._setupUi()
 
     def resizeEvent(self, event: QResizeEvent) -> None:  # pylint: disable=invalid-name; PySide6 API
@@ -49,6 +48,7 @@ class SideBar(QWidget):
             ValueError: If the alignment value is invalid.
         """
         button.clicked.connect(self._buttonCallback)
+        button.setParent(self)
 
         if alignment == SideBarButton.Alignment.TOP:
             self.top_frame_layout.addWidget(button)
@@ -56,7 +56,8 @@ class SideBar(QWidget):
             self.bottom_frame_layout.addWidget(button)
         else:
             raise ValueError(
-                "Invalid value for 'alignment'! Implemented values are 'SideBarButton.Alignment.TOP' and 'SideBarButton.Alignment.BOTTOM'."
+                "Invalid value for 'alignment'!"
+                "Supported values are 'SideBarButton.Alignment.TOP' and 'SideBarButton.Alignment.BOTTOM'."
             )
 
         # Select the first button as default
@@ -85,7 +86,7 @@ class SideBar(QWidget):
 
         # Background frame and its layout
         bg_frame = QFrame(self)
-        bg_frame.setStyleSheet("background-color: #1b1e23; border: none; border-radius: 8px;")
+        bg_frame.setStyleSheet(f"background-color: {self._bg_color}; border: none; border-radius: 8px;")
         bg_layout = QVBoxLayout(bg_frame)
         bg_layout.setContentsMargins(0, 20, 0, 20)
         bg_layout.setSpacing(0)
