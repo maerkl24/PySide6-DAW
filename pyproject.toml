@@ -1,0 +1,79 @@
+# Build system
+[build-system]
+requires = ["pdm-pep517>=1.0"]
+build-backend = "pdm.pep517.api"
+
+# Project
+[project]
+name            = "PySide6-DAW"
+version         = "0.1.0"
+#dynamic         = ["version"]
+description     = "Desktop Application Widget (DAW) for PySide6"
+classifiers     = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Desktop Environment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+authors         = [
+    {name = "Kilian Märkl", email = "kilianmaerkl@web.de"},
+]
+readme          = "README.md"
+license         = {file = "LICENSE"}
+requires-python = ">=3.8,<3.11"
+dependencies    = [
+    "PySide6>=6.2.0",
+]
+
+[project.urls]
+repository = "https://github.com/maerkl24/PySide6-DAW"
+
+
+# PDM
+[tool.pdm.dev-dependencies]
+fromat = [
+    "isort>=5.12.0",
+    "black>=23.1.0",
+]
+lint = [
+    "pylint>=2.17.0",
+    "mypy>=1.1.1",
+]
+
+
+# Isort
+[tool.isort]
+profile = "black"
+line_length = 120
+
+
+# Black
+[tool.black]
+line-length = 120
+
+
+# Pylint
+[tool.pylint.main]
+load-plugins = ["pylint.extensions.docparams"]
+ignored-modules = [
+    "PySide6",  # Neened for PySide6 on Linux (GitHub CI)
+]
+extension-pkg-whitelist = ["PySide6"]
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pylint."messages control"]
+#disable = ["too-many-arguments", "too-few-public-methods", "too-many-instance-attributes", "fixme"]
+
+[tool.pylint.parameter_documentation]
+default-docstring-type = "google"
+
+
+# Mypy
+[tool.mypy]
+warn_return_any = true

@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.isort",
+        "ms-python.pylint",
+        "njpwerner.autodocstring",
+        "bungcip.better-toml",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
+        "davidanson.vscode-markdownlint",
+        "streetsidesoftware.code-spell-checker",
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "editor.rulers": [120],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.mypyEnabled": true,
+}
