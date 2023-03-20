@@ -40,8 +40,8 @@ pdm run mypy PySide6_DAW
 
 ## TODOs
 
-- [ ] Add styling methods to widgets (setting colors)
+- [ ] Evaluate making DesktopApplication inheriting from MainWindow
+- [ ] Maybe add custom properties for ToolTip
 - [ ] Fix linting errors
-- [ ] Check example
 - [ ] Setup contribution rules
 - [ ] Setup PiPy deployment
