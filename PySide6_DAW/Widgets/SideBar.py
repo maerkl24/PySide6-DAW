@@ -2,7 +2,8 @@
 
 from typing import List, Optional
 
-from PySide6.QtGui import QResizeEvent
+from PySide6.QtCore import Property
+from PySide6.QtGui import QColor, QResizeEvent
 from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
 from PySide6_DAW.Widgets.SideBarButton import SideBarButton
@@ -18,14 +19,42 @@ class SideBar(QWidget):
             parent: The parent widget.
         """
         super().__init__(parent)
-
         self._first_button = True
-        # TODO: Make color settable
-        self._bg_color = "#191E23"
 
+        self._layout: QVBoxLayout
+        self._bg_frame: QFrame
+        self._bg_layout: QVBoxLayout
+        self._top_frame: QFrame
+        self._top_frame_layout: QVBoxLayout
+        self._vertical_spacer: QSpacerItem
+        self._bottom_frame: QFrame
+        self._bottom_frame_layout: QVBoxLayout
         self._setupUi()
 
-    def resizeEvent(self, event: QResizeEvent) -> None:  # pylint: disable=invalid-name; PySide6 API
+        self._bg_color: QColor
+        self.bg_color = QColor("#191E23")
+
+    @Property(QColor)
+    def bg_color(self) -> QColor:
+        """Returns the background color for the side bar."""
+        return self._bg_color
+
+    @bg_color.setter
+    def bg_color(self, color: QColor) -> None:
+        """Sets the background color for the side bar."""
+        self._bg_color = color
+        self._bg_frame.setStyleSheet(
+            f"""\
+QFrame#side_bar_bg_frame {{
+    background-color: {self._bg_color.name()};
+    border: none;
+    border-radius: 8px;
+}}
+"""
+        )
+        self.update()
+
+    def resizeEvent(self, event: QResizeEvent) -> None:
         """Resize event
 
         Args:
@@ -51,9 +80,9 @@ class SideBar(QWidget):
         button.setParent(self)
 
         if alignment == SideBarButton.Alignment.TOP:
-            self.top_frame_layout.addWidget(button)
+            self._top_frame_layout.addWidget(button)
         elif alignment == SideBarButton.Alignment.BOTTOM:
-            self.bottom_frame_layout.addWidget(button)
+            self._bottom_frame_layout.addWidget(button)
         else:
             raise ValueError(
                 "Invalid value for 'alignment'!"
@@ -80,34 +109,32 @@ class SideBar(QWidget):
     def _setupUi(self):
         """TODO"""
         # Layout for this widget
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+        self._layout = QVBoxLayout(self)
+        self._layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setSpacing(0)
 
         # Background frame and its layout
-        bg_frame = QFrame(self)
-        bg_frame.setStyleSheet(f"background-color: {self._bg_color}; border: none; border-radius: 8px;")
-        bg_layout = QVBoxLayout(bg_frame)
-        bg_layout.setContentsMargins(0, 20, 0, 20)
-        bg_layout.setSpacing(0)
-        layout.addWidget(bg_frame)
+        self._bg_frame = QFrame(self)
+        self._bg_frame.setObjectName("side_bar_bg_frame")
+        self._bg_layout = QVBoxLayout(self._bg_frame)
+        self._bg_layout.setContentsMargins(0, 20, 0, 20)
+        self._bg_layout.setSpacing(0)
+        self._layout.addWidget(self._bg_frame)
 
         # Top side bar buttons frame and its layout
-        top_frame = QFrame(bg_frame)
-        self.top_frame_layout = QVBoxLayout(top_frame)
-        self.top_frame_layout.setContentsMargins(0, 0, 0, 0)
-        self.top_frame_layout.setSpacing(0)
-        # bg_layout.addWidget(top_frame, 0, Qt.AlignmentFlag.AlignTop)
-        bg_layout.addWidget(top_frame)
+        self._top_frame = QFrame(self._bg_frame)
+        self._top_frame_layout = QVBoxLayout(self._top_frame)
+        self._top_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self._top_frame_layout.setSpacing(0)
+        self._bg_layout.addWidget(self._top_frame)
 
         # Vertical spacer between top and bottom bar
-        vertical_spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-        bg_layout.addItem(vertical_spacer)
+        self._vertical_spacer = QSpacerItem(0, 0, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self._bg_layout.addItem(self._vertical_spacer)
 
         # Bottom side bar buttons frame and its layout
-        bottom_frame = QFrame(bg_frame)
-        self.bottom_frame_layout = QVBoxLayout(bottom_frame)
-        self.bottom_frame_layout.setContentsMargins(0, 0, 0, 0)
-        self.bottom_frame_layout.setSpacing(0)
-        # bg_layout.addWidget(bottom_frame, 0, Qt.AlignmentFlag.AlignBottom)
-        bg_layout.addWidget(bottom_frame)
+        self._bottom_frame = QFrame(self._bg_frame)
+        self._bottom_frame_layout = QVBoxLayout(self._bottom_frame)
+        self._bottom_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self._bottom_frame_layout.setSpacing(0)
+        self._bg_layout.addWidget(self._bottom_frame)

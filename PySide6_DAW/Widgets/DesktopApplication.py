@@ -1,6 +1,8 @@
 """Application widget class implementation."""
 
-from PySide6.QtWidgets import QHBoxLayout, QStackedWidget, QWidget
+from PySide6.QtCore import Property, Qt
+from PySide6.QtGui import QColor
+from PySide6.QtWidgets import QFrame, QHBoxLayout, QStackedWidget, QWidget
 
 from PySide6_DAW.Widgets.SideBar import SideBar
 from PySide6_DAW.Widgets.SideBarButton import SideBarButton
@@ -18,13 +20,33 @@ class DesktopApplication(QWidget):
         """
         super().__init__(parent)
 
-        self.side_bar: SideBar
-        self.stacked_widget: QStackedWidget
+        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
 
-        # TODO: Make color settable
-        self._bg_color = "#282D32"
-
+        self._layout: QHBoxLayout
+        self._side_bar: SideBar
+        self._stacked_widget: QStackedWidget
         self._setupUi()
+
+        self._bg_color: QColor
+        self.bg_color = QColor("#282D32")
+
+    @Property(QColor)
+    def bg_color(self) -> QColor:
+        """Returns the background color for the desktop application."""
+        return self._bg_color
+
+    @bg_color.setter
+    def bg_color(self, color: QColor) -> None:
+        """Sets the background color for the desktop application."""
+        self._bg_color = color
+        self._bg_frame.setStyleSheet(
+            f"""\
+QFrame#desktop_application_bg_frame {{
+    background-color: {self._bg_color.name()};
+}}
+"""
+        )
+        self.update()
 
     def addPage(self, button: SideBarButton, button_alignment: SideBarButton.Alignment, page: QWidget) -> None:
         """TODO
@@ -34,26 +56,30 @@ class DesktopApplication(QWidget):
             button_alignment: TODO
             page: TODO
         """
-        self.side_bar.addButton(button, button_alignment)
-        self.stacked_widget.addWidget(page)
-        button.clicked.connect(lambda: self.stacked_widget.setCurrentWidget(page))
+        self._side_bar.addButton(button, button_alignment)
+        self._stacked_widget.addWidget(page)
+        button.clicked.connect(lambda: self._stacked_widget.setCurrentWidget(page))
 
     def _setupUi(self):
         """TODO"""
-        # TODO: This has no effect! Maybe Widgets have no background color?
-        self.setStyleSheet(f"background-color: {self._bg_color};")
-
         # Layout for this widget
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(10, 10, 10, 10)
-        layout.setSpacing(10)
+        self._layout = QHBoxLayout(self)
+        self._layout.setContentsMargins(0, 0, 0, 0)
+        self._layout.setSpacing(0)
+
+        # Background frame and its layout
+        self._bg_frame = QFrame(self)
+        self._bg_frame.setObjectName("desktop_application_bg_frame")
+        self._bg_frame_layout = QHBoxLayout(self._bg_frame)
+        self._bg_frame_layout.setContentsMargins(10, 10, 10, 10)
+        self._bg_frame_layout.setSpacing(10)
+        self._layout.addWidget(self._bg_frame)
 
         # Menu bar
-        self.side_bar = SideBar(self)
-        self.side_bar.setFixedWidth(60)
-        layout.addWidget(self.side_bar)
+        self._side_bar = SideBar(self)
+        self._side_bar.setFixedWidth(60)
+        self._bg_frame_layout.addWidget(self._side_bar)
 
         # Stacked widget and its layout
-        self.stacked_widget = QStackedWidget(self)
-        self.stacked_widget.setStyleSheet("background-color: #FF00FF;")
-        layout.addWidget(self.stacked_widget)
+        self._stacked_widget = QStackedWidget(self)
+        self._bg_frame_layout.addWidget(self._stacked_widget)

@@ -3,7 +3,7 @@
 from enum import Enum, auto
 from typing import Optional
 
-from PySide6.QtCore import QRect, QSize, Qt
+from PySide6.QtCore import Property, QRect, QSize, Qt
 from PySide6.QtGui import QColor, QIcon, QPainter, QPaintEvent, QPixmap, QResizeEvent, QShowEvent
 from PySide6.QtWidgets import QPushButton, QWidget
 
@@ -20,7 +20,7 @@ class SideBarButton(QPushButton):
         BOTTOM = auto()
 
     def __init__(
-        self, icon: QPixmap, tool_tip: Optional[str] = None, radius: float = 8, parent: Optional[QWidget] = None
+        self, icon: QPixmap, tool_tip: Optional[str] = None, radius: int = 8, parent: Optional[QWidget] = None
     ) -> None:
         """Constructor
 
@@ -34,20 +34,27 @@ class SideBarButton(QPushButton):
 
         self._icon = icon
         self._radius = radius
+        self._tool_tip: Optional[ToolTip] = None
+        if tool_tip:
+            self._tool_tip = ToolTip(text=tool_tip, parent=self.window())
+            self._tool_tip.hide()
 
-        self.setStyleSheet("border: none;")
         self.setCheckable(True)
         self.setCursor(Qt.CursorShape.PointingHandCursor)
 
-        # Colors
+        # Define colors and set default values
         self._bg_color: QColor
         self._on_color: QColor
         self._hl_color: QColor
-        self._icon_color: QColor
+        self._icon_off_color: QColor
         self._icon_on_color: QColor
-        self.setColors()
+        self.bg_color = QColor("#191E23")
+        self.on_color = QColor("#282D32")
+        self.hl_color = QColor("#0066FF")
+        self.icon_off_color = QColor("#808080")
+        self.icon_on_color = QColor("#FFFFFF")
 
-        # Areas for painting
+        # Define areas for painting
         self.rect_background: QRect
         self.rect_icon: QRect
         self.rect_active_left: QRect
@@ -56,34 +63,60 @@ class SideBarButton(QPushButton):
         self.rect_active_right_corner_1: QRect
         self.rect_active_right_corner_2: QRect
 
-        # Create tool tip
-        self._tool_tip: Optional[ToolTip] = None
-        if tool_tip:
-            self._tool_tip = ToolTip(text=tool_tip, parent=self.window())
-            self._tool_tip.hide()
+    @Property(QColor)
+    def bg_color(self) -> QColor:
+        """Returns the background color for the button."""
+        return self._bg_color
 
-    def setColors(
-        self,
-        bg_color: str = "#191E23",
-        on_color: str = "#282D32",
-        hl_color: str = "#0066FF",
-        icon_color: str = "#808080",
-        icon_on_color: str = "#FFFFFF",
-    ):
-        """Set the colors for the side bar button
+    @bg_color.setter
+    def bg_color(self, color: QColor) -> None:
+        """Sets the background color for the button."""
+        self._bg_color = color
+        self.update()
 
-        Args:
-            bg_color: The background color of the button.
-            on_color: The background color of the button if selected.
-            hl_color: The highlight color of the left edge of the button.
-            icon_color: The icon color of the button.
-            icon_on_color: The icon color of the button if selected.
-        """
-        self._bg_color = QColor(bg_color)
-        self._on_color = QColor(on_color)
-        self._hl_color = QColor(hl_color)
-        self._icon_color = QColor(icon_color)
-        self._icon_on_color = QColor(icon_on_color)
+    @Property(QColor)
+    def on_color(self) -> QColor:
+        """Returns the background color for the button in active/hovered state."""
+        return self._on_color
+
+    @bg_color.setter
+    def on_color(self, color: QColor) -> None:
+        """Sets the background color for the button in active/hovered state."""
+        self._on_color = color
+        self.update()
+
+    @Property(QColor)
+    def hl_color(self) -> QColor:
+        """Returns the highlight color for the left edge of the button in active state."""
+        return self._hl_color
+
+    @bg_color.setter
+    def hl_color(self, color: QColor) -> None:
+        """Sets the highlight color for the left edge of the button in active state.."""
+        self._hl_color = color
+        self.update()
+
+    @Property(QColor)
+    def icon_off_color(self) -> QColor:
+        """Returns the icon color for the button in inactive state."""
+        return self._icon_off_color
+
+    @bg_color.setter
+    def icon_off_color(self, color: QColor) -> None:
+        """Sets the icon color for the button in inactive state."""
+        self._icon_off_color = color
+        self.update()
+
+    @Property(QColor)
+    def icon_on_color(self) -> QColor:
+        """Returns the icon color for the button in active/hovered state."""
+        return self._icon_on_color
+
+    @bg_color.setter
+    def icon_on_color(self, color: QColor) -> None:
+        """Returns the icon color for the button in active/hovered state."""
+        self._icon_on_color = color
+        self.update()
 
     # TODO: Replace this hack!
     def showEvent(self, event: QShowEvent) -> None:
@@ -96,11 +129,11 @@ class SideBarButton(QPushButton):
         if self._tool_tip:
             self._tool_tip.setParent(self.window())
 
-    def minimumSizeHint(self) -> QSize:  # pylint: disable=invalid-name; Follow PySide6 API
+    def minimumSizeHint(self) -> QSize:
         """Return default size"""
         return QSize(40, 40)
 
-    def resizeEvent(self, event: QResizeEvent) -> None:  # pylint: disable=invalid-name; PySide6 API
+    def resizeEvent(self, event: QResizeEvent) -> None:
         """Resize event
 
         Args:
@@ -113,14 +146,14 @@ class SideBarButton(QPushButton):
         height = self.height()
         self.rect_background = QRect(0, 0, width, height)
         # self.rect_icon = QRect(1.5*radius, 1.5*radius, width-3*radius, height-3*radius)
-        self.rect_icon = QRect(width / 4, height / 4, width / 2, height / 2)
-        self.rect_active_left = QRect(radius / 2, radius, 2 * radius, height - 2 * radius)
+        self.rect_icon = QRect(width // 4, height // 4, width // 2, height // 2)
+        self.rect_active_left = QRect(radius // 2, radius, 2 * radius, height - 2 * radius)
         self.rect_active_middle = QRect(radius, radius, width - 2 * radius, height - 2 * radius)
         self.rect_active_right = QRect(width - 2 * radius, 0, 2 * radius, height)
         self.rect_active_right_corner_1 = QRect(width - 3 * radius, -radius, 3 * radius, 2 * radius)
         self.rect_active_right_corner_2 = QRect(width - 3 * radius, height - radius, 3 * radius, 2 * radius)
 
-    def paintEvent(self, event: QPaintEvent) -> None:  # pylint: disable=invalid-name; PySide6 API
+    def paintEvent(self, event: QPaintEvent) -> None:
         """Paint event
 
         Args:
@@ -165,20 +198,26 @@ class SideBarButton(QPushButton):
             if self._tool_tip:
                 button_pos = self.window().mapFromGlobal(self.mapToGlobal(self.rect().topLeft()))
                 tool_tip_x = button_pos.x() + self.width() + 5
-                tool_tip_y = button_pos.y() + self.height() / 2 - self._tool_tip.height() / 2
+                tool_tip_y = button_pos.y() + self.height() // 2 - self._tool_tip.height() // 2
                 self._tool_tip.move(tool_tip_x, tool_tip_y)
                 self._tool_tip.show()
         else:
             # Draw icon
-            self._drawIcon(painter, self.rect_icon, self._icon_color)
+            self._drawIcon(painter, self.rect_icon, self._icon_off_color)
             # Hide tool tip
             if self._tool_tip:
                 self._tool_tip.hide()
 
         painter.end()
 
-    def _drawIcon(self, painter: QPainter, rect: QRect, color: QColor):
-        """TODO"""
+    def _drawIcon(self, painter: QPainter, rect: QRect, color: QColor) -> None:
+        """Draw the side bar button icon
+
+        Args:
+            painter: The painter to paint the icon with.
+            rect: The size of the icon.
+            color: The color of the icon.
+        """
         pixmap = QPixmap(self._icon)
         pixmap_painter = QPainter(pixmap)
         pixmap_painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceIn)
@@ -187,7 +226,7 @@ class SideBarButton(QPushButton):
         icon = QIcon(pixmap)
         icon.paint(painter, rect)
 
-    # def enterEvent(self, event: QEnterEvent) -> None:  #pylint: disable=invalid-name; PySide6 API
+    # def enterEvent(self, event: QEnterEvent) -> None:
     #    """Enter event
     #
     #    Args:
@@ -196,7 +235,7 @@ class SideBarButton(QPushButton):
     #    super().enterEvent(event)
     #    self.is_hover = True
 
-    # def leaveEvent(self, event: QEvent) -> None:  #pylint: disable=invalid-name; PySide6 API
+    # def leaveEvent(self, event: QEvent) -> None:
     #    """Leave event
     #
     #    Args:
@@ -205,7 +244,7 @@ class SideBarButton(QPushButton):
     #    super().leaveEvent(event)
     #    self.is_hover = False
 
-    # def mousePressEvent(self, event: QMouseEvent) -> None:  #pylint: disable=invalid-name; PySide6 API
+    # def mousePressEvent(self, event: QMouseEvent) -> None:
     #    """Mouse press event
     #
     #    Args:

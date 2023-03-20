@@ -1,0 +1,15 @@
+SideBarButton {
+    qproperty-bg_color: #191E23;
+    qproperty-on_color: #282D32;
+    qproperty-hl_color: #0066FF;
+    qproperty-icon_off_color: #808080;
+    qproperty-icon_on_color: #FFFFFF;
+}
+
+SideBar {
+    qproperty-bg_color: #191E23;
+}
+
+DesktopApplication {
+    qproperty-bg_color: #282D32;
+}

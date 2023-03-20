@@ -22,23 +22,25 @@ class ToolTip(QLabel):
         self.setText(text)
         self.adjustSize()
 
-    def setColors(self, color: str = "#A0A0A0", bg_color: str = "#191E23", hl_color: str = "#0066FF") -> None:
+    def setColors(self, text_color: str = "#A0A0A0", bg_color: str = "#191E23", hl_color: str = "#0066FF") -> None:
         """Set the colors for the tool tip
 
         Args:
-            color: The text color.
+            text_color: The text color.
             bg_color: The background color.
             hl_color: The highlight color.
         """
         self.setStyleSheet(
-            (
-                f"color: {color};"
-                f"background-color: {bg_color};"
-                "padding-left: 10px;"
-                "padding-right: 10px;"
-                "border-radius: 15px;"
-                f"border-right: none;"
-                f"border-left: 3px solid {hl_color};"
-                "font: 800 9pt Segoe UI;"
-            )
+            f"""\
+ToolTip {{
+    color: {text_color};
+    background-color: {bg_color};
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    border-right: none;
+    border-left: 3px solid {hl_color};
+    font: 800 9pt Segoe UI;
+}}
+"""
         )
