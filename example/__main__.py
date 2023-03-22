@@ -60,8 +60,8 @@ def main() -> None:
     #    app.setStyleSheet(f.read())
 
     # Style sheet with custom color theme
-    with open("style2.qss", "r", encoding="utf-8") as style_sheet:
-        app.setStyleSheet(style_sheet.read())
+    # with open("style2.qss", "r", encoding="utf-8") as style_sheet:
+    #    app.setStyleSheet(style_sheet.read())
 
     sys.exit(app.exec())
 
