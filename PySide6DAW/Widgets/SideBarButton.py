@@ -32,15 +32,13 @@ class SideBarButton(QPushButton):
         """
         super().__init__(parent)
 
+        # Set attributes from arguments
         self._icon = icon
         self._radius = radius
         self._tool_tip: Optional[ToolTip] = None
         if tool_tip:
             self._tool_tip = ToolTip(text=tool_tip, parent=self.window())
             self._tool_tip.hide()
-
-        self.setCheckable(True)
-        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         # Define colors and set default values
         self._bg_color: QColor
@@ -62,6 +60,10 @@ class SideBarButton(QPushButton):
         self.rect_active_right: QRect
         self.rect_active_right_corner_1: QRect
         self.rect_active_right_corner_2: QRect
+
+        # Set QPushButton properties
+        self.setCheckable(True)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
     @Property(QColor)
     def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
@@ -224,31 +226,3 @@ class SideBarButton(QPushButton):
         pixmap_painter.end()
         icon = QIcon(pixmap)
         icon.paint(painter, rect)
-
-    # def enterEvent(self, event: QEnterEvent) -> None:
-    #    """Enter event
-    #
-    #    Args:
-    #        event: The event.
-    #    """
-    #    super().enterEvent(event)
-    #    self.is_hover = True
-
-    # def leaveEvent(self, event: QEvent) -> None:
-    #    """Leave event
-    #
-    #    Args:
-    #        event: The event.
-    #    """
-    #    super().leaveEvent(event)
-    #    self.is_hover = False
-
-    # def mousePressEvent(self, event: QMouseEvent) -> None:
-    #    """Mouse press event
-    #
-    #    Args:
-    #        event: The event.
-    #    """
-    #    super().mousePressEvent(event)
-    #    if event.button() == Qt.MouseButton.LeftButton:
-    #        self.setChecked(True)

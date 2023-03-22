@@ -1,3 +1,9 @@
+ToolTip {
+    qproperty-bg_color: #222222;
+    qproperty-hl_color: #0000FF;
+    qproperty-text_color: #0000FF;
+}
+
 SideBarButton {
     qproperty-bg_color: #222222;
     qproperty-on_color: #000000;

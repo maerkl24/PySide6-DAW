@@ -8,6 +8,15 @@ from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout, QWi
 
 from PySide6DAW.Widgets.SideBarButton import SideBarButton
 
+#: Template for background frame stylesheet
+_BG_FRAME_STYLESHEET = """\
+QFrame#side_bar_bg_frame {{
+    background-color: {bg_color};
+    border: none;
+    border-radius: 8px;
+}}
+"""
+
 
 class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color also appears in DesktopApplication.
     """Side bar widget"""
@@ -19,10 +28,13 @@ class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color als
             parent: The parent widget.
         """
         super().__init__(parent)
+
+        # Define attributes
         self._first_button = True
         self._top_buttons: List[SideBarButton] = []
         self._bottom_buttons: List[SideBarButton] = []
 
+        # Set UI
         self._layout: QVBoxLayout
         self._bg_frame: QFrame
         self._bg_layout: QVBoxLayout
@@ -33,8 +45,13 @@ class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color als
         self._bottom_frame_layout: QVBoxLayout
         self._setupUi()
 
-        self._bg_color: QColor
-        self.bg_color = QColor("#191E23")  # type: ignore[assignment, method-assign]
+        # Define colors and set default values
+        self._bg_color = QColor("#191E23")
+        self._setStyle()
+
+    def _setStyle(self) -> None:
+        """Apply stylesheet."""
+        self._bg_frame.setStyleSheet(_BG_FRAME_STYLESHEET.format(bg_color=self._bg_color.name()))
 
     @Property(QColor)
     def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is not hidden, as it is a property.
@@ -45,15 +62,7 @@ class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color als
     def bg_color(self, color: QColor) -> None:
         """Sets the background color for the side bar."""
         self._bg_color = color
-        self._bg_frame.setStyleSheet(
-            f"""\
-QFrame#side_bar_bg_frame {{
-    background-color: {self._bg_color.name()};
-    border: none;
-    border-radius: 8px;
-}}
-"""
-        )
+        self._setStyle()
         self.update()
 
     def resizeEvent(self, event: QResizeEvent) -> None:

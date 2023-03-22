@@ -60,15 +60,15 @@ line-length = 120
 # Pylint
 [tool.pylint.main]
 load-plugins = ["pylint.extensions.docparams"]
-ignored-modules = [
-    "PySide6",  # Neened for PySide6 on Linux (GitHub CI)
-]
+#ignored-modules = [
+#    "PySide6",  # Neened for PySide6 on Linux (GitHub CI)
+#]
 extension-pkg-whitelist = ["PySide6"]
 
 [tool.pylint.basic]
-function-rgx = "^_?[a-z][a-zA-Z0-9]+$"                    # PySide6 naming scheme: camelCase
-method-rgx = "^_?[a-z][a-zA-Z0-9]+$|^_?[a-z][a-z0-9_]+$"  # PySide6 naming scheme: camelCase or snake_case (for properties)
-module-rgx = "^[A-Z][a-zA-Z0-9]+$|^__init__$"             # PySide6 naming scheme: PascalCase or __init__
+function-rgx = "^_?[a-z][a-zA-Z0-9]+$"                               # PySide6 naming scheme: camelCase
+method-rgx = "^_?[a-z][a-zA-Z0-9]+$|^_?[a-z][a-z0-9_]+$|^__init__$"  # PySide6 naming scheme: camelCase, snake_case (for properties) or __init__
+module-rgx = "^[A-Z][a-zA-Z0-9]+$|^__init__$"                        # PySide6 naming scheme: PascalCase or __init__
 property-classes = ["abc.abstractproperty, PySide6.QtCore.Property"]
 
 [tool.pylint.design]
