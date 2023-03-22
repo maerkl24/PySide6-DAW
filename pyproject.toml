@@ -7,7 +7,6 @@ build-backend = "pdm.pep517.api"
 [project]
 name            = "PySide6-DAW"
 version         = "0.1.0"
-#dynamic         = ["version"]
 description     = "Desktop Application Widget (DAW) for PySide6"
 keywords        = ["Python", "PySide6", "GUI"]
 classifiers     = [
@@ -60,9 +59,7 @@ line-length = 120
 # Pylint
 [tool.pylint.main]
 load-plugins = ["pylint.extensions.docparams"]
-#ignored-modules = [
-#    "PySide6",  # Neened for PySide6 on Linux (GitHub CI)
-#]
+ignored-modules = ["PySide6"]
 extension-pkg-whitelist = ["PySide6"]
 
 [tool.pylint.basic]
