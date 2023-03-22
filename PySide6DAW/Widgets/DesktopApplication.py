@@ -28,14 +28,14 @@ class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property b
         self._setupUi()
 
         self._bg_color: QColor
-        self.bg_color = QColor("#282D32")
+        self.bg_color = QColor("#282D32")  # type: ignore[assignment, method-assign]
 
     @Property(QColor)
     def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
         """Returns the background color for the desktop application."""
         return self._bg_color
 
-    @bg_color.setter
+    @bg_color.setter  # type: ignore[no-redef]
     def bg_color(self, color: QColor) -> None:
         """Sets the background color for the desktop application."""
         self._bg_color = color
@@ -58,7 +58,7 @@ QFrame#desktop_application_bg_frame {{
         """
         self._side_bar.addButton(button, button_alignment)
         self._stacked_widget.addWidget(page)
-        button.clicked.connect(lambda: self._stacked_widget.setCurrentWidget(page))
+        button.clicked.connect(lambda: self._stacked_widget.setCurrentWidget(page))  # type: ignore[attr-defined]
 
     def _setupUi(self):
         """TODO"""

@@ -83,3 +83,4 @@ default-docstring-type = "google"
 # Mypy
 [tool.mypy]
 warn_return_any = true
+check_untyped_defs = true

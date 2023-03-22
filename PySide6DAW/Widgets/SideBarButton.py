@@ -48,11 +48,11 @@ class SideBarButton(QPushButton):
         self._hl_color: QColor
         self._icon_off_color: QColor
         self._icon_on_color: QColor
-        self.bg_color = QColor("#191E23")
-        self.on_color = QColor("#282D32")
-        self.hl_color = QColor("#0066FF")
-        self.icon_off_color = QColor("#808080")
-        self.icon_on_color = QColor("#FFFFFF")
+        self.bg_color = QColor("#191E23")  # type: ignore[assignment, method-assign]
+        self.on_color = QColor("#282D32")  # type: ignore[assignment, method-assign]
+        self.hl_color = QColor("#0066FF")  # type: ignore[assignment, method-assign]
+        self.icon_off_color = QColor("#808080")  # type: ignore[assignment, method-assign]
+        self.icon_on_color = QColor("#FFFFFF")  # type: ignore[assignment, method-assign]
 
         # Define areas for painting
         self.rect_background: QRect
@@ -68,7 +68,7 @@ class SideBarButton(QPushButton):
         """Returns the background color for the button."""
         return self._bg_color
 
-    @bg_color.setter
+    @bg_color.setter  # type: ignore[no-redef]
     def bg_color(self, color: QColor) -> None:
         """Sets the background color for the button."""
         self._bg_color = color
@@ -79,7 +79,7 @@ class SideBarButton(QPushButton):
         """Returns the background color for the button in active/hovered state."""
         return self._on_color
 
-    @on_color.setter
+    @on_color.setter  # type: ignore[no-redef]
     def on_color(self, color: QColor) -> None:
         """Sets the background color for the button in active/hovered state."""
         self._on_color = color
@@ -90,7 +90,7 @@ class SideBarButton(QPushButton):
         """Returns the highlight color for the left edge of the button in active state."""
         return self._hl_color
 
-    @hl_color.setter
+    @hl_color.setter  # type: ignore[no-redef]
     def hl_color(self, color: QColor) -> None:
         """Sets the highlight color for the left edge of the button in active state.."""
         self._hl_color = color
@@ -101,7 +101,7 @@ class SideBarButton(QPushButton):
         """Returns the icon color for the button in inactive state."""
         return self._icon_off_color
 
-    @icon_off_color.setter
+    @icon_off_color.setter  # type: ignore[no-redef]
     def icon_off_color(self, color: QColor) -> None:
         """Sets the icon color for the button in inactive state."""
         self._icon_off_color = color
@@ -112,7 +112,7 @@ class SideBarButton(QPushButton):
         """Returns the icon color for the button in active/hovered state."""
         return self._icon_on_color
 
-    @icon_on_color.setter
+    @icon_on_color.setter  # type: ignore[no-redef]
     def icon_on_color(self, color: QColor) -> None:
         """Returns the icon color for the button in active/hovered state."""
         self._icon_on_color = color

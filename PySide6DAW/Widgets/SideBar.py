@@ -34,14 +34,14 @@ class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color als
         self._setupUi()
 
         self._bg_color: QColor
-        self.bg_color = QColor("#191E23")
+        self.bg_color = QColor("#191E23")  # type: ignore[assignment, method-assign]
 
     @Property(QColor)
     def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is not hidden, as it is a property.
         """Returns the background color for the side bar."""
         return self._bg_color
 
-    @bg_color.setter
+    @bg_color.setter  # type: ignore[no-redef]
     def bg_color(self, color: QColor) -> None:
         """Sets the background color for the side bar."""
         self._bg_color = color
@@ -79,7 +79,7 @@ QFrame#side_bar_bg_frame {{
             ValueError: If the alignment value is invalid.
         """
         button.setParent(self)
-        button.clicked.connect(self._buttonCallback)
+        button.clicked.connect(self._buttonCallback)  # type: ignore[attr-defined]
 
         if alignment == SideBarButton.Alignment.TOP:
             self._top_buttons.append(button)
