@@ -9,6 +9,7 @@ name            = "PySide6-DAW"
 version         = "0.1.0"
 #dynamic         = ["version"]
 description     = "Desktop Application Widget (DAW) for PySide6"
+keywords        = ["Python", "PySide6", "GUI"]
 classifiers     = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
