@@ -6,10 +6,10 @@ from PySide6.QtCore import Property
 from PySide6.QtGui import QColor, QResizeEvent
 from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
-from PySide6_DAW.Widgets.SideBarButton import SideBarButton
+from PySide6DAW.Widgets.SideBarButton import SideBarButton
 
 
-class SideBar(QWidget):
+class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color also appears in DesktopApplication.
     """Side bar widget"""
 
     def __init__(self, parent: Optional[QWidget] = None) -> None:
@@ -20,6 +20,8 @@ class SideBar(QWidget):
         """
         super().__init__(parent)
         self._first_button = True
+        self._top_buttons: List[SideBarButton] = []
+        self._bottom_buttons: List[SideBarButton] = []
 
         self._layout: QVBoxLayout
         self._bg_frame: QFrame
@@ -35,7 +37,7 @@ class SideBar(QWidget):
         self.bg_color = QColor("#191E23")
 
     @Property(QColor)
-    def bg_color(self) -> QColor:
+    def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is not hidden, as it is a property.
         """Returns the background color for the side bar."""
         return self._bg_color
 
@@ -76,12 +78,14 @@ QFrame#side_bar_bg_frame {{
         Raises:
             ValueError: If the alignment value is invalid.
         """
-        button.clicked.connect(self._buttonCallback)
         button.setParent(self)
+        button.clicked.connect(self._buttonCallback)
 
         if alignment == SideBarButton.Alignment.TOP:
+            self._top_buttons.append(button)
             self._top_frame_layout.addWidget(button)
         elif alignment == SideBarButton.Alignment.BOTTOM:
+            self._bottom_buttons.append(button)
             self._bottom_frame_layout.addWidget(button)
         else:
             raise ValueError(

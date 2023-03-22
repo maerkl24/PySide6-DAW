@@ -32,10 +32,10 @@ pdm install --dev
 To execute the development tools, run the following commands on your terminal:
 
 ```shell
-pdm run isort PySide6_DAW
-pdm run black PySide6_DAW
-pdm run pylint PySide6_DAW
-pdm run mypy PySide6_DAW
+pdm run isort PySide6DAW
+pdm run black PySide6DAW
+pdm run pylint PySide6DAW
+pdm run mypy PySide6DAW
 ```
 
 ## TODOs

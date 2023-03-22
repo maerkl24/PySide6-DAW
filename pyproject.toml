@@ -65,10 +65,13 @@ ignored-modules = [
 extension-pkg-whitelist = ["PySide6"]
 
 [tool.pylint.basic]
-# Use PySide6 naming schemes
-function-naming-style = "camelCase"
-method-naming-style = "camelCase"
-module-rgx = "^[A-Z][a-zA-Z]+|__init__"
+function-rgx = "^_?[a-z][a-zA-Z0-9]+$"                    # PySide6 naming scheme: camelCase
+method-rgx = "^_?[a-z][a-zA-Z0-9]+$|^_?[a-z][a-z0-9_]+$"  # PySide6 naming scheme: camelCase or snake_case (for properties)
+module-rgx = "^[A-Z][a-zA-Z0-9]+$|^__init__$"             # PySide6 naming scheme: PascalCase or __init__
+property-classes = ["abc.abstractproperty, PySide6.QtCore.Property"]
+
+[tool.pylint.design]
+max-attributes = 20
 
 [tool.pylint.format]
 max-line-length = 120

@@ -7,7 +7,7 @@ from PySide6.QtCore import QRect
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget
 
-from PySide6_DAW.Widgets import DesktopApplication, SideBarButton
+from PySide6DAW.Widgets import DesktopApplication, SideBarButton
 
 
 class MainWindow(QMainWindow):

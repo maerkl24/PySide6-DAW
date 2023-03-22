@@ -4,11 +4,11 @@ from PySide6.QtCore import Property, Qt
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QStackedWidget, QWidget
 
-from PySide6_DAW.Widgets.SideBar import SideBar
-from PySide6_DAW.Widgets.SideBarButton import SideBarButton
+from PySide6DAW.Widgets.SideBar import SideBar
+from PySide6DAW.Widgets.SideBarButton import SideBarButton
 
 
-class DesktopApplication(QWidget):
+class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property bg_color also appears in SideBar.
     """Desktop application widget"""
 
     def __init__(self, parent: QWidget) -> None:
@@ -31,7 +31,7 @@ class DesktopApplication(QWidget):
         self.bg_color = QColor("#282D32")
 
     @Property(QColor)
-    def bg_color(self) -> QColor:
+    def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
         """Returns the background color for the desktop application."""
         return self._bg_color
 

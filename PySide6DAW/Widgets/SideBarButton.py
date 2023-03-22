@@ -7,7 +7,7 @@ from PySide6.QtCore import Property, QRect, QSize, Qt
 from PySide6.QtGui import QColor, QIcon, QPainter, QPaintEvent, QPixmap, QResizeEvent, QShowEvent
 from PySide6.QtWidgets import QPushButton, QWidget
 
-from PySide6_DAW.Widgets.ToolTip import ToolTip
+from PySide6DAW.Widgets.ToolTip import ToolTip
 
 
 class SideBarButton(QPushButton):
@@ -64,7 +64,7 @@ class SideBarButton(QPushButton):
         self.rect_active_right_corner_2: QRect
 
     @Property(QColor)
-    def bg_color(self) -> QColor:
+    def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
         """Returns the background color for the button."""
         return self._bg_color
 
@@ -75,50 +75,49 @@ class SideBarButton(QPushButton):
         self.update()
 
     @Property(QColor)
-    def on_color(self) -> QColor:
+    def on_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
         """Returns the background color for the button in active/hovered state."""
         return self._on_color
 
-    @bg_color.setter
+    @on_color.setter
     def on_color(self, color: QColor) -> None:
         """Sets the background color for the button in active/hovered state."""
         self._on_color = color
         self.update()
 
     @Property(QColor)
-    def hl_color(self) -> QColor:
+    def hl_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
         """Returns the highlight color for the left edge of the button in active state."""
         return self._hl_color
 
-    @bg_color.setter
+    @hl_color.setter
     def hl_color(self, color: QColor) -> None:
         """Sets the highlight color for the left edge of the button in active state.."""
         self._hl_color = color
         self.update()
 
     @Property(QColor)
-    def icon_off_color(self) -> QColor:
+    def icon_off_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
         """Returns the icon color for the button in inactive state."""
         return self._icon_off_color
 
-    @bg_color.setter
+    @icon_off_color.setter
     def icon_off_color(self, color: QColor) -> None:
         """Sets the icon color for the button in inactive state."""
         self._icon_off_color = color
         self.update()
 
     @Property(QColor)
-    def icon_on_color(self) -> QColor:
+    def icon_on_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
         """Returns the icon color for the button in active/hovered state."""
         return self._icon_on_color
 
-    @bg_color.setter
+    @icon_on_color.setter
     def icon_on_color(self, color: QColor) -> None:
         """Returns the icon color for the button in active/hovered state."""
         self._icon_on_color = color
         self.update()
 
-    # TODO: Replace this hack!
     def showEvent(self, event: QShowEvent) -> None:
         """Show event
 
@@ -126,7 +125,7 @@ class SideBarButton(QPushButton):
             event: The event.
         """
         super().showEvent(event)
-        if self._tool_tip:
+        if self._tool_tip and self._tool_tip.parent() is None:
             self._tool_tip.setParent(self.window())
 
     def minimumSizeHint(self) -> QSize:
