@@ -24,7 +24,7 @@ jobs:
           architecture: x64
           version: 2.4.9
       - name: Install PySide6 Ubuntu prerequisites
-        run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6 -y
+        run: sudo apt-get update && sudo apt-get install -y libgl1 libegl1
       - name: Install PySide6-DAW
         run: pdm install
       - name: Run example

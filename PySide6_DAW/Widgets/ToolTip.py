@@ -2,7 +2,7 @@
 
 from typing import Optional
 
-from PySide6.QtCore import Property
+from PySide6.QtCore import Property, Qt
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QGridLayout, QLabel, QWidget
 
@@ -14,14 +14,14 @@ QLabel {{
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 15px;
-    border-right: none;
+    border: none;
     border-left: 3px solid {hl_color};
     font: 800 9pt Segoe UI;
 }}
 """
 
 
-class ToolTip(QWidget):  # pylint: disable=too-few-public-methods; TODO
+class ToolTip(QWidget):
     """Tool tip widget"""
 
     def __init__(self, text: str, parent: Optional[QWidget] = None) -> None:
@@ -48,8 +48,9 @@ class ToolTip(QWidget):  # pylint: disable=too-few-public-methods; TODO
 
         self._label.setMinimumHeight(30)
         self._label.setText(text)
+        self._label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self._label.adjustSize()
-        self.adjustSize()
+        self.setFixedSize(self._label.size())
 
     def _setStyle(self) -> None:
         """Apply stylesheet."""
@@ -69,7 +70,6 @@ class ToolTip(QWidget):  # pylint: disable=too-few-public-methods; TODO
         """Sets the background color for the side bar."""
         self._bg_color = color
         self._setStyle()
-        self.update()
 
     @Property(QColor)
     def hl_color(self) -> QColor:  # pylint: disable=method-hidden; Method is not hidden, as it is a property.
@@ -81,7 +81,6 @@ class ToolTip(QWidget):  # pylint: disable=too-few-public-methods; TODO
         """Sets the background color for the side bar."""
         self._hl_color = color
         self._setStyle()
-        self.update()
 
     @Property(QColor)
     def text_color(self) -> QColor:  # pylint: disable=method-hidden; Method is not hidden, as it is a property.
@@ -93,4 +92,3 @@ class ToolTip(QWidget):  # pylint: disable=too-few-public-methods; TODO
         """Sets the background color for the side bar."""
         self._text_color = color
         self._setStyle()
-        self.update()

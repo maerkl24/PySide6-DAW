@@ -63,7 +63,6 @@ class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color als
         """Sets the background color for the side bar."""
         self._bg_color = color
         self._setStyle()
-        self.update()
 
     def resizeEvent(self, event: QResizeEvent) -> None:
         """Resize event

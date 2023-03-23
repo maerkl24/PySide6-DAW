@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         """Constructor"""
         super().__init__(parent=None)
 
-        self.setWindowTitle("MenuButton Test")
+        self.setWindowTitle("PySide6-DAW Example")
         self.setMinimumSize(800, 600)
 
         desktop_application = DesktopApplication(self)
@@ -66,11 +66,11 @@ def main() -> None:
     window.show()
 
     # Style sheet with the default color theme
-    # with open("style.qss", "r", encoding="utf-8") as f:
+    # with open(Path(__file__).parent.joinpath("style.qss"), "r", encoding="utf-8") as f:
     #    app.setStyleSheet(f.read())
 
     # Style sheet with custom color theme
-    # with open("style2.qss", "r", encoding="utf-8") as style_sheet:
+    # with open(Path(__file__).parent.joinpath("style2.qss"), "r", encoding="utf-8") as style_sheet:
     #    app.setStyleSheet(style_sheet.read())
 
     sys.exit(app.exec())

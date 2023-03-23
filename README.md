@@ -85,7 +85,6 @@ pdm run mypy PySide6_DAW
 
 ## TODOs
 
-- [ ] Fix ToolTip, currently not showing
 - [ ] Evaluate making DesktopApplication inheriting from MainWindow
-- [ ] Setup contribution rules
+- [ ] Setup contribution rules and workflow check
 - [ ] Setup PyPi deployment

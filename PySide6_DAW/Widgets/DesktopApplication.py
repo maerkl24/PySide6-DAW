@@ -7,6 +7,13 @@ from PySide6.QtWidgets import QFrame, QHBoxLayout, QStackedWidget, QWidget
 from PySide6_DAW.Widgets.SideBar import SideBar
 from PySide6_DAW.Widgets.SideBarButton import SideBarButton
 
+#: Template for background frame stylesheet
+_BG_FRAME_STYLESHEET = """\
+QFrame#desktop_application_bg_frame {{
+    background-color: {bg_color};
+}}
+"""
+
 
 class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property bg_color also appears in SideBar.
     """Desktop application widget"""
@@ -27,8 +34,12 @@ class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property b
         self._stacked_widget: QStackedWidget
         self._setupUi()
 
-        self._bg_color: QColor
-        self.bg_color = QColor("#282D32")  # type: ignore[assignment, method-assign]
+        self._bg_color = QColor("#282D32")
+        self._setStyle()
+
+    def _setStyle(self) -> None:
+        """Apply stylesheet."""
+        self._bg_frame.setStyleSheet(_BG_FRAME_STYLESHEET.format(bg_color=self._bg_color.name()))
 
     @Property(QColor)
     def bg_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
@@ -39,14 +50,7 @@ class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property b
     def bg_color(self, color: QColor) -> None:
         """Sets the background color for the desktop application."""
         self._bg_color = color
-        self._bg_frame.setStyleSheet(
-            f"""\
-QFrame#desktop_application_bg_frame {{
-    background-color: {self._bg_color.name()};
-}}
-"""
-        )
-        self.update()
+        self._setStyle()
 
     def addPage(self, button: SideBarButton, button_alignment: SideBarButton.Alignment, page: QWidget) -> None:
         """TODO

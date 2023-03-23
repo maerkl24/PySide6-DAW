@@ -37,7 +37,7 @@ class SideBarButton(QPushButton):
         self._radius = radius
         self._tool_tip: Optional[ToolTip] = None
         if tool_tip:
-            self._tool_tip = ToolTip(text=tool_tip, parent=self.window())
+            self._tool_tip = ToolTip(text=tool_tip)
             self._tool_tip.hide()
 
         # Define colors and set default values
@@ -74,7 +74,6 @@ class SideBarButton(QPushButton):
     def bg_color(self, color: QColor) -> None:
         """Sets the background color for the button."""
         self._bg_color = color
-        self.update()
 
     @Property(QColor)
     def on_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
@@ -85,7 +84,6 @@ class SideBarButton(QPushButton):
     def on_color(self, color: QColor) -> None:
         """Sets the background color for the button in active/hovered state."""
         self._on_color = color
-        self.update()
 
     @Property(QColor)
     def hl_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
@@ -96,7 +94,6 @@ class SideBarButton(QPushButton):
     def hl_color(self, color: QColor) -> None:
         """Sets the highlight color for the left edge of the button in active state.."""
         self._hl_color = color
-        self.update()
 
     @Property(QColor)
     def icon_off_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
@@ -107,7 +104,6 @@ class SideBarButton(QPushButton):
     def icon_off_color(self, color: QColor) -> None:
         """Sets the icon color for the button in inactive state."""
         self._icon_off_color = color
-        self.update()
 
     @Property(QColor)
     def icon_on_color(self) -> QColor:  # pylint: disable=method-hidden; Method is a property and thus not hidden.
@@ -118,7 +114,6 @@ class SideBarButton(QPushButton):
     def icon_on_color(self, color: QColor) -> None:
         """Returns the icon color for the button in active/hovered state."""
         self._icon_on_color = color
-        self.update()
 
     def showEvent(self, event: QShowEvent) -> None:
         """Show event
