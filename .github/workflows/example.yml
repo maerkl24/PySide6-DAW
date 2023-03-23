@@ -23,8 +23,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
           version: 2.4.9
-      - name: Install libGL.so.1 (needed py PySide6)
-        run: sudo apt-get update && sudo apt-get install libgl1 -y
+      - name: Install PySide6 Ubuntu prerequisites
+        run: sudo apt-get update && sudo apt-get install ffmpeg libsm6 libxext6 -y
       - name: Install PySide6-DAW
         run: pdm install
       - name: Run example
