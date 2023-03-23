@@ -66,9 +66,8 @@ extension-pkg-whitelist = ["PySide6"]
 
 [tool.pylint.basic]
 function-rgx = "^_?[a-z][a-zA-Z0-9]+$"                               # PySide6 naming scheme: camelCase
-method-rgx = "^_?[a-z][a-zA-Z0-9]+$|^_?[a-z][a-z0-9_]+$|^__init__$"  # PySide6 naming scheme: camelCase, snake_case (for properties) or __init__
-module-rgx = "^[A-Z][a-zA-Z0-9]+$|^__init__$"                        # PySide6 naming scheme: PascalCase or __init__
-property-classes = ["abc.abstractproperty, PySide6.QtCore.Property"]
+method-rgx = "^_?[a-z][a-zA-Z0-9]+$|^_?[a-z][a-z0-9_]+$|^__init__$"  # PySide6 naming scheme: camelCase, snake_case (for properties) and __init__
+module-rgx = "^[A-Z][a-zA-Z0-9]+$|^PySide6_DAW$|^__init__$"          # PySide6 naming scheme: PascalCase, __init__ and PySide6_DAW
 
 [tool.pylint.design]
 max-attributes = 20

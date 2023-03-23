@@ -26,4 +26,4 @@ jobs:
       - name: Install dependencies
         run: pdm install
       - name: Run example
-        run: python -m example
+        run: pdm run python -m example
