@@ -4,12 +4,13 @@ from enum import Enum, auto
 from typing import Optional
 
 from PySide6.QtCore import Property, QRect, QSize, Qt
-from PySide6.QtGui import QColor, QIcon, QPainter, QPaintEvent, QPixmap, QResizeEvent, QShowEvent
+from PySide6.QtGui import QColor, QIcon, QPainter, QPaintEvent, QPixmap, QResizeEvent
 from PySide6.QtWidgets import QPushButton, QWidget
 
 from PySide6_DAW.Widgets.ToolTip import ToolTip
 
 
+# pylint: disable=duplicate-code; Properties appear in several widgets.
 class SideBarButton(QPushButton):
     """Side bar button widget"""
 
@@ -115,14 +116,14 @@ class SideBarButton(QPushButton):
         """Returns the icon color for the button in active/hovered state."""
         self._icon_on_color = color
 
-    def showEvent(self, event: QShowEvent) -> None:
-        """Show event
+    def setParent(self, parent: QWidget) -> None:  # type: ignore[override]
+        """Set parent widget.
 
         Args:
-            event: The event.
+            parent: The parent widget.
         """
-        super().showEvent(event)
-        if self._tool_tip and self._tool_tip.parent() is None:
+        super().setParent(parent)
+        if self._tool_tip:
             self._tool_tip.setParent(self.window())
 
     def minimumSizeHint(self) -> QSize:

@@ -21,6 +21,7 @@ QLabel {{
 """
 
 
+# pylint: disable=duplicate-code; Properties appear in several widgets.
 class ToolTip(QWidget):
     """Tool tip widget"""
 

@@ -1,5 +1,7 @@
 """Application widget class implementation."""
 
+from typing import Optional
+
 from PySide6.QtCore import Property, Qt
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QStackedWidget, QWidget
@@ -15,15 +17,15 @@ QFrame#desktop_application_bg_frame {{
 """
 
 
-class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property bg_color also appears in SideBar.
+# pylint: disable=duplicate-code; Properties appear in several widgets.
+class DesktopApplication(QWidget):
     """Desktop application widget"""
 
-    def __init__(self, parent: QWidget) -> None:
+    def __init__(self, parent: Optional[QWidget] = None) -> None:
         """Constructor
 
         Args:
-            parent: TODO
-            flags: TODO
+            parent: The parent widget.
         """
         super().__init__(parent)
 
@@ -53,19 +55,19 @@ class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property b
         self._setStyle()
 
     def addPage(self, button: SideBarButton, button_alignment: SideBarButton.Alignment, page: QWidget) -> None:
-        """TODO
+        """Add new side bar button and page.
 
         Args:
-            button: TODO
-            button_alignment: TODO
-            page: TODO
+            button: The side bar button for the new page.
+            button_alignment: The alignment of the side bar button within the side bar.
+            page: The new page.
         """
         self._side_bar.addButton(button, button_alignment)
         self._stacked_widget.addWidget(page)
         button.clicked.connect(lambda: self._stacked_widget.setCurrentWidget(page))  # type: ignore[attr-defined]
 
     def _setupUi(self):
-        """TODO"""
+        """Setup UI"""
         # Layout for this widget
         self._layout = QHBoxLayout(self)
         self._layout.setContentsMargins(0, 0, 0, 0)

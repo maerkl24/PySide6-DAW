@@ -18,7 +18,8 @@ QFrame#side_bar_bg_frame {{
 """
 
 
-class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color also appears in DesktopApplication.
+# pylint: disable=duplicate-code; Properties appear in several widgets.
+class SideBar(QWidget):
     """Side bar widget"""
 
     def __init__(self, parent: Optional[QWidget] = None) -> None:
@@ -80,8 +81,8 @@ class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color als
         """Add a new side bar button the the side bar.
 
         Args:
-            button: TODO
-            alignment: TODO
+            button: The new side bar button.
+            alignment: The alignment of the side bar button within the side bar.
 
         Raises:
             ValueError: If the alignment value is invalid.
@@ -119,7 +120,7 @@ class SideBar(QWidget):  # pylint: disable=duplicate-code; Property bg_color als
                 button.setChecked(False)
 
     def _setupUi(self):
-        """TODO"""
+        """Setup UI"""
         # Layout for this widget
         self._layout = QVBoxLayout(self)
         self._layout.setContentsMargins(0, 0, 0, 0)
