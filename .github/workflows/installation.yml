@@ -1,0 +1,26 @@
+name: Installation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/installation.yml'
+      - 'pyproject.toml'
+      - 'PySide6_DAW/**'
+jobs:
+  install:
+    name: Install PySide6-DAW with Python ${{ matrix.python-version }}
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install PySide6-DAW
+        run: pip install git+https://github.com/maerkl24/PySide6-DAW.git
+      - name: Import PySide6-DAW
+        run: python -c "import PySide6_DAW"

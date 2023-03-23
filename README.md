@@ -1,5 +1,7 @@
 [![Formatting](https://github.com/maerkl24/PySide6-DAW/actions/workflows/formatting.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/formatting.yml)
 [![Linting](https://github.com/maerkl24/PySide6-DAW/actions/workflows/linting.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/linting.yml)
+[![Installation](https://github.com/maerkl24/PySide6-DAW/actions/workflows/installation.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/installation.yml)
+[![Example](https://github.com/maerkl24/PySide6-DAW/actions/workflows/example.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/example.yml)
 
 # PySide6-DAW
 
@@ -10,6 +12,8 @@ application development with ``PySide6``, without losing any functionality.
 ![PySide6-DAW Banner](assets/banner.gif)
 
 ## Installation
+
+To install the ``PySide6-DAW`` Python package, execute the following command on your terminal:
 
 ```shell
 pip install git+https://github.com/maerkl24/PySide6-DAW.git
@@ -84,4 +88,4 @@ pdm run mypy PySide6_DAW
 - [ ] Fix ToolTip, currently not showing
 - [ ] Evaluate making DesktopApplication inheriting from MainWindow
 - [ ] Setup contribution rules
-- [ ] Setup PiPy deployment
+- [ ] Setup PyPi deployment

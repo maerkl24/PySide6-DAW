@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         desktop_application = DesktopApplication(self)
         self.setCentralWidget(desktop_application)
 
-        icon = QPixmap(Path("./settings.svg"))
+        icon = QPixmap(Path(__file__).parent.joinpath("settings.svg"))
 
         # Page 1
         btn_1 = SideBarButton(icon, "Button 1")
