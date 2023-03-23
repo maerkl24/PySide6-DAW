@@ -7,7 +7,7 @@ from PySide6.QtCore import Property, QRect, QSize, Qt
 from PySide6.QtGui import QColor, QIcon, QPainter, QPaintEvent, QPixmap, QResizeEvent, QShowEvent
 from PySide6.QtWidgets import QPushButton, QWidget
 
-from PySide6DAW.Widgets.ToolTip import ToolTip
+from PySide6_DAW.Widgets.ToolTip import ToolTip
 
 
 class SideBarButton(QPushButton):

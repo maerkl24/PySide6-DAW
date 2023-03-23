@@ -6,7 +6,7 @@ from PySide6.QtCore import Property
 from PySide6.QtGui import QColor, QResizeEvent
 from PySide6.QtWidgets import QFrame, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
-from PySide6DAW.Widgets.SideBarButton import SideBarButton
+from PySide6_DAW.Widgets.SideBarButton import SideBarButton
 
 #: Template for background frame stylesheet
 _BG_FRAME_STYLESHEET = """\

@@ -5,7 +5,7 @@ on:
     paths:
       - '.github/workflows/linting.yml'
       - 'pyproject.toml'
-      - 'PySide6DAW/**'
+      - 'PySide6_DAW/**'
 jobs:
   pylint:
     name: Pylint on Python ${{ matrix.python-version }}
@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: pdm install --dev
       - name: Run pylint
-        run: pdm run pylint PySide6DAW
+        run: pdm run pylint PySide6_DAW
   mypy:
     name: Mypy on Python ${{ matrix.python-version }}
     runs-on: ubuntu-22.04
@@ -44,4 +44,4 @@ jobs:
       - name: Install dependencies
         run: pdm install --dev
       - name: Run mypy
-        run: pdm run mypy PySide6DAW
+        run: pdm run mypy PySide6_DAW

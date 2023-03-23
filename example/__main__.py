@@ -1,4 +1,4 @@
-"""PySide6 example application demonstrating the use of PySide6DAW."""
+"""PySide6 example application demonstrating the use of PySide6-DAW."""
 
 import sys
 from pathlib import Path
@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QApplication, QGridLayout, QLabel, QMainWindow, QWidget
 
-from PySide6DAW.Widgets import DesktopApplication, SideBarButton
+from PySide6_DAW.Widgets import DesktopApplication, SideBarButton
 
 
 class MainWindow(QMainWindow):

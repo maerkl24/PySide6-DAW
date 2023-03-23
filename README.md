@@ -1,23 +1,30 @@
 [![Formatting](https://github.com/maerkl24/PySide6-DAW/actions/workflows/formatting.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/formatting.yml)
 [![Linting](https://github.com/maerkl24/PySide6-DAW/actions/workflows/linting.yml/badge.svg)](https://github.com/maerkl24/PySide6-DAW/actions/workflows/linting.yml)
 
-# PySide6DAW
+# PySide6-DAW
 
-Desktop Application Widget (DAW) for PySide6. ``PySide6DAW`` is designed as Python package and provides additional
-widgets, especially for desktop applications. The aim of ``PySide6DAW`` is to simplify and speedup the desktop
+Desktop Application Widget (DAW) for PySide6. ``PySide6-DAW`` is designed as Python package and provides additional
+widgets, especially for desktop applications. The aim of ``PySide6-DAW`` is to simplify and speedup the desktop
 application development with ``PySide6``, without losing any functionality.
 
-![PySide6DAW Banner](assets/banner.gif)
+![PySide6-DAW Banner](assets/banner.gif)
+
+## Installation
+
+```shell
+pip install git+https://github.com/maerkl24/PySide6-DAW.git
+```
 
 ## Usage
 
 The provided widgets are based on ``PySide6.QtWidgets.QWidget`` and thus can be treated as any other widget. The
-following code snippet demonstrates to usage of ``PySide6DAW`` in a simple manner.
+following code snippet demonstrates to usage of ``PySide6-DAW`` in a simple manner.
 
 ```python
+import sys
 from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QApplication, QMainWindow
-from PySide6DAW.Widgets import DesktopApplication, SideBarButton
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
+from PySide6_DAW.Widgets import DesktopApplication, SideBarButton
 
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
@@ -27,8 +34,8 @@ class MainWindow(QMainWindow):
         desktop_app = DesktopApplication(self)
 
         # Add a page to the desktop application widget
-        icon_1 = QPixmap(Path("my_icon.svg"))
-        bttn_1 = SideBarButton(icon, "Button 1")
+        icon_1 = QPixmap("my_icon.png")
+        bttn_1 = SideBarButton(icon_1, "Button 1")
         page_1 = QWidget()
         desktop_app.addPage(bttn_1, SideBarButton.Alignment.TOP, page_1)
 
@@ -66,10 +73,10 @@ pdm install --dev
 To execute the development tools, run the following commands on your terminal:
 
 ```shell
-pdm run isort PySide6DAW
-pdm run black PySide6DAW
-pdm run pylint PySide6DAW
-pdm run mypy PySide6DAW
+pdm run isort PySide6_DAW
+pdm run black PySide6_DAW
+pdm run pylint PySide6_DAW
+pdm run mypy PySide6_DAW
 ```
 
 ## TODOs

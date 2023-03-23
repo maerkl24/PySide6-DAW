@@ -8,8 +8,9 @@ build-backend = "pdm.pep517.api"
 name            = "PySide6-DAW"
 version         = "0.1.0"
 description     = "Desktop Application Widget (DAW) for PySide6"
-keywords        = ["Python", "PySide6", "GUI"]
+keywords        = ["Python", "Python3", "PySide6", "Qt", "GUI", "Desktop-Application"]
 classifiers     = [
+    "Environment :: X11 Applications :: Qt",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
@@ -17,6 +18,7 @@ classifiers     = [
     "Programming Language :: Python :: 3.10",
     "Topic :: Desktop Environment",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Widget Sets",
     "Typing :: Typed",
 ]
 authors         = [

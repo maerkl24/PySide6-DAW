@@ -5,7 +5,7 @@ on:
     paths:
       - '.github/workflows/formatting.yml'
       - 'pyproject.toml'
-      - 'PySide6DAW/**'
+      - 'PySide6_DAW/**'
 jobs:
   isort:
     name: Isort
@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: pdm install --dev
       - name: Run isort
-        run: pdm run isort --check PySide6DAW
+        run: pdm run isort --check PySide6_DAW
   black:
     name: Black
     runs-on: ubuntu-22.04
@@ -38,4 +38,4 @@ jobs:
       - name: Install dependencies
         run: pdm install --dev
       - name: Run black
-        run: pdm run black --check PySide6DAW
+        run: pdm run black --check PySide6_DAW

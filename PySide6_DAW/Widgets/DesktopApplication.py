@@ -4,8 +4,8 @@ from PySide6.QtCore import Property, Qt
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QStackedWidget, QWidget
 
-from PySide6DAW.Widgets.SideBar import SideBar
-from PySide6DAW.Widgets.SideBarButton import SideBarButton
+from PySide6_DAW.Widgets.SideBar import SideBar
+from PySide6_DAW.Widgets.SideBarButton import SideBarButton
 
 
 class DesktopApplication(QWidget):  # pylint: disable=duplicate-code; Property bg_color also appears in SideBar.
