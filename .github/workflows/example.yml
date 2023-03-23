@@ -9,7 +9,7 @@ on:
       - 'example/**'
 jobs:
   example:
-    name: Install PySide6-DAW on Python ${{ matrix.python-version }}
+    name: Run PySide6-DAW example on Python ${{ matrix.python-version }}
     runs-on: ubuntu-22.04
     strategy:
       matrix:
@@ -23,7 +23,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: x64
           version: 2.4.9
-      - name: Install dependencies
+      - name: Install libGL.so.1 (needed py PySide6)
+        run: apt-get update && apt-get install libgl1 -y
+      - name: Install PySide6-DAW
         run: pdm install
       - name: Run example
         run: pdm run python -m example

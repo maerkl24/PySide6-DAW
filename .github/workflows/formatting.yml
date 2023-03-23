@@ -19,7 +19,7 @@ jobs:
           python-version: '3.10'
           architecture: x64
           version: 2.4.9
-      - name: Install dependencies
+      - name: Install PySide6-DAW and development tools
         run: pdm install --dev
       - name: Run isort
         run: pdm run isort --check PySide6_DAW
