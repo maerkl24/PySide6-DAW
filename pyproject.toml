@@ -6,7 +6,7 @@ build-backend = "pdm.pep517.api"
 # Project
 [project]
 name            = "PySide6-DAW"
-version         = "0.1.0"
+dynamic         = ["version"]
 description     = "Desktop Application Widget (DAW) for PySide6"
 keywords        = ["Python", "Python3", "PySide6", "Qt", "GUI", "Desktop-Application"]
 classifiers     = [
@@ -36,6 +36,10 @@ repository = "https://github.com/maerkl24/PySide6-DAW"
 
 
 # PDM
+[tool.pdm.version]
+source = "file"
+path = "PySide6_DAW/__init__.py"
+
 [tool.pdm.dev-dependencies]
 format = [
     "isort>=5.12.0",
