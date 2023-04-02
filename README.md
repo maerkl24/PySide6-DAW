@@ -85,6 +85,7 @@ pdm run mypy PySide6_DAW
 
 ## TODOs
 
+- [ ] Fix example workflow (How to check GUI app without desktop?)
 - [ ] Evaluate making DesktopApplication inheriting from MainWindow
 - [ ] Setup contribution rules and workflow check
 - [ ] Setup PyPi deployment
